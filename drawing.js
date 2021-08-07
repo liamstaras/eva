@@ -25,6 +25,9 @@ class CrossSection {
     get tracks() {
         return this._tracks
     }
+    bindTracks(endpointFunction) { // bind the tracks property to an external function
+        Object.defineProperty(this, 'tracks', { get: endpointFunction })
+    }
     drawAll() { // function to redraw all elements of the canvas
         this.context.clearRect(0, 0, ...this.dimensions) // clear the display before starting
         this.plotDisplay(); // redraw the display

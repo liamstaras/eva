@@ -3,6 +3,7 @@
 <script src="events.js"></script>
 <script>
     crossSection = new CrossSection();
-    crossSection.tracks.push(new Track(2.60,200));
+    tracks = [new Track(0.82,150), new Track(2.60,200), new Track(2.21,220)]
+    crossSection.bindTracks(function() {return tracks.map(track => track)});
     crossSection.drawAll();
 </script>

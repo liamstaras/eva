@@ -1,5 +1,8 @@
 <canvas id="crossSection" width="500" height="500"></canvas>
 <script src="drawing.js"></script>
+<script src="events.js"></script>
 <script>
     crossSection = new CrossSection();
+    crossSection.tracks.push(new Track(2.60,200));
+    crossSection.drawAll();
 </script>

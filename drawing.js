@@ -13,6 +13,7 @@ class CrossSection {
     constructor() {
         this.canvas = document.getElementById("crossSection"); // bind the HTML element to the object *FUTURE: pass as parameter
         this.context = this.canvas.getContext("2d"); // return a drawing frame object
+        this._tracks = [];
         this.drawAll(); // initial redraw
     }
     get dimensions() { // simple getter to give the (current) canvas dimensions
@@ -21,10 +22,16 @@ class CrossSection {
     get centre() { // simple getter to give the (current) geometric centre of the canvas
         return [this.canvas.width/2,this.canvas.height/2]
     }
-    drawAll() { // function to redraw all elements of the canvas
-        this.drawDisplay(); // redraw the display
+    get tracks() {
+        return this._tracks
     }
-    drawDisplay() { // function to draw the display of the detector
+    drawAll() { // function to redraw all elements of the canvas
+        this.context.clearRect(0, 0, ...this.dimensions) // clear the display before starting
+        this.plotDisplay(); // redraw the display
+        this.tracks.forEach(item => this.plotTrack(item.phi, item.length));
+        this.context.stroke(); // actually draw on the canvas
+    }
+    plotDisplay() { // function to draw the display of the detector
         this.context.beginPath(); // place our circle in a path
         this.context.arc(
             ...this.centre, // the centre of the circle is the centre of the canvas; unpack to x and y coord.s
@@ -32,11 +39,9 @@ class CrossSection {
             0, 2*Math.PI // draw an arc through 360 deg.
             );
         this.context.closePath(); // finish the path
-        this.context.stroke(); // actually draw on the canvas
     }
-    drawTrack(angle, length) { // funcrion to plot a simple track in the display
+    plotTrack(angle, length) { // funcrion to plot a simple track in the display
         this.context.moveTo(...this.centre); // move the cursor to the centre of the display
         this.context.lineTo(this.centre[0]+length*Math.cos(angle),this.centre[1]-length*Math.sin(angle)); // plot a line at the desired angle
-        this.context.stroke(); // actually draw on the canvas
     }
 }

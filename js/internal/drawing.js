@@ -22,16 +22,16 @@ class CrossSection {
     get centre() { // simple getter to give the (current) geometric centre of the canvas
         return [this.canvas.width/2,this.canvas.height/2]
     }
-    get tracks() {
+    get tracks() { // placeholder getter for tracks, redirecting to ghost internal property
         return this._tracks
     }
     bindTracks(endpointFunction) { // bind the tracks property to an external function
-        Object.defineProperty(this, 'tracks', { get: endpointFunction })
+        Object.defineProperty(this, 'tracks', { get: endpointFunction });
     }
     drawAll() { // function to redraw all elements of the canvas
         this.context.clearRect(0, 0, ...this.dimensions) // clear the display before starting
         this.plotDisplay(); // redraw the display
-        this.tracks.forEach(item => this.plotTrack(item.phi, item.length));
+        this.tracks.forEach(item => this.plotTrack(item.direction, item.magnitude)); // plot each track in array
         this.context.stroke(); // actually draw on the canvas
     }
     plotDisplay() { // function to draw the display of the detector

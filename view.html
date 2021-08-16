@@ -1,14 +1,14 @@
 <canvas id="crossSection" width="500" height="500"></canvas>
 <script src="js/internal/drawing.js"></script>
 <script src="js/internal/events.js"></script>
-<script src="js/internal/csv.js"></script>
+<script src="js/internal/xml.js"></script>
 <script src="js/internal/support.js"></script>
 <script src="js/external/papaparse.min.js"></script>
 <script>
     tracks = []
     crossSection = new CrossSection();
     crossSection.bindTracks(function() {return tracks.map(track => track.transverse)});
-    tracksPromise = csvTracks('test_events/simple_csv.csv')
+    tracksPromise = xmlTracks('test_events/hypatia_xml.xml')
     tracksPromise.then(function(result) {
         tracks = result;
         crossSection.drawAll();
